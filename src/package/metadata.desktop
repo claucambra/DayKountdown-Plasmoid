@@ -1,0 +1,19 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=dkplasmoid
+Comment=Plasmoid to display days remaining until specified event.
+Icon=applications-system
+Type=Service
+
+X-KDE-Library=plasma_applet_tutorial
+
+X-KDE-PluginInfo-Author=clau-cambra
+X-KDE-PluginInfo-Email=claudio.cambra@gmail.com
+X-KDE-PluginInfo-License=GPLv3
+X-KDE-PluginInfo-Name=org.kde.dkplasmoid
+X-KDE-PluginInfo-Version=2.0
+X-KDE-PluginInfo-Website=plasma.kde.org
+X-KDE-ServiceTypes=Plasma/Applet
+X-Plasma-API=declarativeappletscript
+X-Plasma-MainScript=ui/main.qml
+X-KDE-PluginInfo-Category=Windows and Tasks
