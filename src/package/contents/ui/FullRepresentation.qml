@@ -24,8 +24,9 @@ Item {
 			}
 			Controls.Button {
 				id: addButton
-				icon.name: "list-add"
-				text: i18nc("@action:button", "Add")
+				icon.name: "view-refresh"
+				text: i18nc("@action:button", "Refresh")
+				onClicked: plasmoid.nativeInterface.updateKountdownModel()
 			}
 		}
 		PlasmaExtras.ScrollArea {
@@ -37,13 +38,27 @@ Item {
 			}
 			Layout.fillHeight: true
 			ListView {
-				id: layout
+				id: cardsView
 				anchors.fill: parent
 				// Model contains info to be displayed
 				model: plasmoid.nativeInterface.KountdownModel
 				// Grabs component from different file specified in resources
 				delegate: DKPlasmoidCard {}
 				spacing: 5
+				Kirigami.PlaceholderMessage {
+					visible: cardsView.count == 0 ? true : false
+					anchors.centerIn: parent
+					anchors.left: parent.left
+					anchors.right: parent.right
+					
+					text: {
+						if(plasmoid.nativeInterface.dbError === "true") {
+							return i18n("An error occurred reading the Kountdown database.")
+						} else if (cardsView.count == 0) {
+							return i18n("Go add some kountdowns!")
+						}
+					}
+				}
 			}
 		}
 	}

@@ -15,29 +15,6 @@
 
 KountdownModel::KountdownModel(QObject *parent) : QSqlTableModel(parent)
 {
-	// If database does not contain KountdownModel table, then create it
-	if (!QSqlDatabase::database().tables().contains(QStringLiteral("KountdownModel"))) {
-		// Statement to be inputted into SQLite
-		// This is a rawstring
-		const auto statement = QStringLiteral(R"RAWSTRING(
-			CREATE TABLE IF NOT EXISTS KountdownModel (
-				id INTEGER PRIMARY KEY AUTOINCREMENT,
-				name TEXT NOT NULL,
-				description TEXT NOT NULL,
-				date TEXT NOT NULL,
-				dateInMs INTEGER NOT NULL,
-				colour TEXT NOT NULL
-			)
-		)RAWSTRING");
-		auto query = QSqlQuery(statement);
-		// QSqlQuery returns false if query was unsuccessful
-		if (!query.exec()) {
-			qCritical() << query.lastError() << "while creating table";
-		}
-	}
-	
-	//QSqlQuery("DROP TABLE KountdownModel");
-	
 	// Sets data table on which the model is going to operate
 	setTable(QStringLiteral("KountdownModel"));
 	// All changed will be cached in the model until submitAll() ot revertAll() is called
@@ -85,62 +62,6 @@ QHash<int, QByteArray> KountdownModel::roleNames() const
 		roles.insert(Qt::UserRole + i + 1, record().fieldName(i).toUtf8());
 	}
 	return roles;
-}
-
-bool KountdownModel::addKountdown(const QString& name, const QString& description, const QDateTime& date, QString colour)
-{
-	// Create new instance of QSqlRecord
-	// this points towards newRecord itself
-	// calls record(), which returns a QSqlRecord containing the field information
-	QSqlRecord newRecord = this->record();
-	// Set field values
-	newRecord.setValue(QStringLiteral("Name"), name);
-	newRecord.setValue(QStringLiteral("Description"), description);
-	newRecord.setValue(QStringLiteral("Date"), date.toString(Qt::ISODate));
-	newRecord.setValue(QStringLiteral("DateInMs"), date.toMSecsSinceEpoch());
-	newRecord.setValue(QStringLiteral("Colour"), colour);
-	
-	// insertRecord returns bool
-	// inserts in last location
-	bool result = insertRecord(rowCount(), newRecord);
-	// result = result & submitAll
-	// submitAll also returns bool
-	result &= submitAll();
-	return result;
-}
-
-//Similar to previous function, except result = setRecord instead of insertRecord
-bool KountdownModel::editKountdown(int index, const QString& name, const QString& description, const QDateTime& date, QString colour)
-{
-	QSqlRecord record = this->record();
-	record.setValue(QStringLiteral("ID"), index);
-	record.setValue(QStringLiteral("Name"), name);
-	record.setValue(QStringLiteral("Description"), description);
-	record.setValue(QStringLiteral("Date"), date.toString(Qt::ISODate));
-	record.setValue(QStringLiteral("DateInMs"), date.toMSecsSinceEpoch());
-	record.setValue(QStringLiteral("Colour"), colour);
-	qDebug() << record;
-	bool result = setRecord(index, record);
-	qDebug() << result;
-	result &= submitAll();
-	qDebug() << result;
-	qDebug() << KountdownModel::lastError();
-	return result;
-}
-
-bool KountdownModel::removeKountdown(int index)
-{
-	bool result = removeRow(index);
-	result &= submitAll();
-	return result;
-}
-
-bool KountdownModel::removeAllKountdowns()
-{
-	QSqlQuery query;
-	bool result = query.exec("DELETE FROM KountdownModel");
-	result &= submitAll();
-	return result;
 }
 
 void KountdownModel::listAllKountdowns()

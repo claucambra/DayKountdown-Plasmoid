@@ -15,10 +15,6 @@ Item {
 	}
 	
     //Plasmoid.compactRepresentation: CompactRepresentation {}
-    Plasmoid.fullRepresentation: FullRepresentation {
-		
-	}
-	Component.onCompleted: {
-		console.log(plasmoid.nativeInterface.KountdownModel.listAllKountdowns())
-	}
+    Plasmoid.fullRepresentation: FullRepresentation {}
+    Component.onCompleted: console.log(plasmoid.nativeInterface.dbError)
 }

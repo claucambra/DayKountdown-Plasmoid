@@ -64,11 +64,6 @@ Kirigami.AbstractCard {
 					visible: description.length > 0
 				}
 			}
-			Controls.Button {
-				Layout.alignment: Qt.AlignRight
-				Layout.columnSpan: 2
-				text: i18n("Edit")
-			}
 		}
 	}
 }
