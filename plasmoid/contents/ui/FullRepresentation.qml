@@ -38,16 +38,41 @@ Item {
 		}
 	}
 	
-	PlasmaExtras.ScrollArea {
-		id: scrollArea
+	ColumnLayout {
 		anchors.fill: parent
-		ListView {
-			id: layout
-			anchors.fill: parent
-			// Model contains info to be displayed
-			model: kountdownModel
-			// Grabs component from different file specified in resources
-			delegate: DKPlasmoidCard {}
+		RowLayout {
+			Kirigami.Heading {
+				level: 1
+				text: i18n("Kountdowns")
+				wrapMode: Text.Wrap
+			}
+			Item {
+				Layout.fillWidth: true
+				height: addButton.implicitHeight
+			}
+			Controls.Button {
+				id: addButton
+				icon.name: "list-add"
+				text: i18nc("@action:button", "Add")
+			}
+		}
+		PlasmaExtras.ScrollArea {
+			id: scrollArea
+			anchors {
+				left: parent.left
+				right: parent.right
+				bottom: parent.bottom
+			}
+			Layout.fillHeight: true
+			ListView {
+				id: layout
+				anchors.fill: parent
+				// Model contains info to be displayed
+				model: kountdownModel
+				// Grabs component from different file specified in resources
+				delegate: DKPlasmoidCard {}
+				spacing: 5
+			}
 		}
 	}
 }
