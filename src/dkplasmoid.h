@@ -19,6 +19,7 @@ public:
     ~DKPlasmoid();
 
 	Q_INVOKABLE void updateKountdownModel();
+	Q_INVOKABLE void launchFullDK();
 	
     KountdownModel* readKountdownModel() const;
 	void setKountdownModel(KountdownModel* inKountdownModel);

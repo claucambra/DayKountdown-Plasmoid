@@ -17,6 +17,16 @@ DKPlasmoid::~DKPlasmoid()
 {
 }
 
+void DKPlasmoid::launchFullDK()
+{
+	int outcome = system("daykountdown");
+	if(outcome != 0) {
+		qDebug() << "ERROR CODE:" << outcome;
+		qDebug() << "Did you install the full DayKountdown app?";
+	}
+}
+
+
 void DKPlasmoid::updateKountdownModel()
 {
 	KountdownModel* updatedModel = new KountdownModel(qApp);

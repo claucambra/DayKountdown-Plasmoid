@@ -2,13 +2,14 @@ import QtQuick 2.6
 import QtQuick.Controls 2.0 as Controls
 import QtQuick.Layouts 1.2
 import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.kirigami 2.13 as Kirigami 
 
 Item {
 	id: fullResLayout
 	anchors.fill: parent
 	Layout.preferredWidth: Kirigami.Units.gridUnit * 16
-	Layout.preferredHeight: Kirigami.Units.gridUnit * 56
+	Layout.preferredHeight: Kirigami.Units.gridUnit * 20
 	
 	ColumnLayout {
 		anchors.fill: parent
@@ -22,11 +23,15 @@ Item {
 				Layout.fillWidth: true
 				height: addButton.implicitHeight
 			}
-			Controls.Button {
-				id: addButton
+			PlasmaComponents3.ToolButton {
+				id: refreshButton
 				icon.name: "view-refresh"
-				text: i18nc("@action:button", "Refresh")
 				onClicked: plasmoid.nativeInterface.updateKountdownModel()
+			}
+			PlasmaComponents3.ToolButton {
+				id: addButton
+				icon.name: "document-properties"
+				onClicked: plasmoid.nativeInterface.launchFullDK()
 			}
 		}
 		PlasmaExtras.ScrollArea {
