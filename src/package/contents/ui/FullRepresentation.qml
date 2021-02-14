@@ -113,7 +113,7 @@ Item {
 					
 					text: {
 						if(plasmoid.nativeInterface.dbError === "true") {
-							return i18n("An error occurred reading the Kountdown database.")
+							return i18n("An error occurred when trying to read the Kountdown database.")
 						} else if (cardsView.count == 0) {
 							return i18n("Go add some kountdowns!")
 						}

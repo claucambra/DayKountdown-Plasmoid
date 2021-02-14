@@ -21,9 +21,11 @@ void DKPlasmoid::launchFullDK()
 {
 	int outcome = system("daykountdown");
 	if(outcome != 0) {
-		qDebug() << "ERROR CODE:" << outcome;
-		if(outcome == 32512)
-			qDebug() << "Did you install the full DayKountdown app?";
+		if(outcome == 32512) {
+			system("notify-send -i 'org.kde.daykountdown' 'Error launching DayKountdown' 'Did you install the full DayKountdown app?'");
+		} else {
+			system("notify-send -i 'org.kde.daykountdown' 'Error launching DayKountdown'");
+		}
 	}
 }
 
