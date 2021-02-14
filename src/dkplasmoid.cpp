@@ -16,6 +16,7 @@ DKPlasmoid::DKPlasmoid(QObject *parent, const QVariantList &args) : Plasma::Appl
 		qCritical() << db.lastError() << "while opening database at" << path;
 		m_dbError = true;
 	}
+	m_dbPath = path;
 	m_KountdownModel = new KountdownModel(qApp);
 }
 
@@ -51,6 +52,17 @@ void DKPlasmoid::setKountdownModel(KountdownModel* inKountdownModel)
 KountdownModel* DKPlasmoid::readKountdownModel() const
 {
     return m_KountdownModel;
+}
+
+void DKPlasmoid::setDbPath(QString inDbPath)
+{
+	m_dbPath = inDbPath;
+	emit dbPathChanged(inDbPath);
+}
+
+QString DKPlasmoid::readDbPath() const
+{
+    return m_dbPath;
 }
 
 bool DKPlasmoid::readDbError()

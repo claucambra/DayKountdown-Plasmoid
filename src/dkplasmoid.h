@@ -17,7 +17,8 @@
 class DKPlasmoid : public Plasma::Applet
 {
     Q_OBJECT
-    Q_PROPERTY(KountdownModel* KountdownModel READ readKountdownModel WRITE setKountdownModel NOTIFY kountdownModelChanged CONSTANT)
+    Q_PROPERTY(KountdownModel* KountdownModel READ readKountdownModel WRITE setKountdownModel NOTIFY kountdownModelChanged)
+	Q_PROPERTY(QString dbPath READ readDbPath WRITE setDbPath NOTIFY dbPathChanged)
 	Q_PROPERTY(bool dbError READ readDbError CONSTANT)
 
 public:
@@ -29,13 +30,19 @@ public:
 	
     KountdownModel* readKountdownModel() const;
 	void setKountdownModel(KountdownModel* inKountdownModel);
-	bool readDbError();
 	
+	QString readDbPath() const;
+	void setDbPath(QString inDbPath);
+	
+	bool readDbError();
+		
 signals:
 	void kountdownModelChanged(KountdownModel*);
+	void dbPathChanged(QString);
 
 private:
     KountdownModel* m_KountdownModel;
+	QString m_dbPath;
 	bool m_dbError;
 };
 
