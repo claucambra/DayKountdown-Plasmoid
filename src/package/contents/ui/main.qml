@@ -1,3 +1,9 @@
+/*
+* SPDX-FileCopyrightText: (C) 2021 Claudio Cambra <claudio.cambra@gmail.com>
+* 
+* SPDX-LicenseRef: GPL-3.0-or-later
+*/
+
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
@@ -14,6 +20,7 @@ Item {
 		onTriggered: nowDate = new Date()
 	}
 	
-    //Plasmoid.compactRepresentation: CompactRepresentation {}
+    Plasmoid.compactRepresentation: CompactRepresentation {}
     Plasmoid.fullRepresentation: FullRepresentation {}
+    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 }

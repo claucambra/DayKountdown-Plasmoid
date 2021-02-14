@@ -1,3 +1,9 @@
+/*
+* SPDX-FileCopyrightText: (C) 2021 Claudio Cambra <claudio.cambra@gmail.com>
+* 
+* SPDX-LicenseRef: GPL-3.0-or-later
+*/
+
 import QtQuick 2.6
 import QtQuick.Controls 2.0 as Controls
 import QtQuick.Layouts 1.2
