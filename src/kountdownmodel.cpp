@@ -76,6 +76,7 @@ void KountdownModel::listAllKountdowns()
 
 void KountdownModel::sortModel(int sort_by) {
 	// Switch based on enum defined in kountdownmodel.h
+	qDebug() << sort_by << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 	switch(sort_by) {
 		case (AlphabeticalAsc):
 			// This points to KountdownModel

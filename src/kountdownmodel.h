@@ -30,7 +30,7 @@ public:
 	
 	// Used for more semantic arguments to model sorting function
 	enum SortTypes {
-		CreationAsc,
+		CreationAsc = 0,
 		CreationDesc,
 		AlphabeticalAsc,
 		AlphabeticalDesc,
