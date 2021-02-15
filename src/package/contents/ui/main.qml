@@ -12,6 +12,17 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
 Item {
+	property string cfg_dbPath: plasmoid.configuration.dbPath
+	property string cfg_pinnedDk: plasmoid.configuration.pinnedDk
+	
+	Component.onCompleted: {
+		if(cfg_dbPath === "") {
+			cfg_dbPath = plasmoid.nativeInterface.getStdDbPath()
+		}
+		plasmoid.nativeInterface.setDbPath(cfg_dbPath)
+		plasmoid.nativeInterface.updateKountdownModel()
+	}
+	
 	property var nowDate: new Date()
 	Timer {
 		interval: 60000
@@ -22,5 +33,5 @@ Item {
 	
     Plasmoid.compactRepresentation: CompactRepresentation {}
     Plasmoid.fullRepresentation: FullRepresentation {}
-    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
+    Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
 }

@@ -14,22 +14,29 @@ import org.kde.kirigami 2.5 as Kirigami
 Kirigami.FormLayout {
 	id: configGeneral
 	
-	ListModel {
-		id: poopmodel
-		ListElement {name: "poop"}
-		ListElement {name: "peep"}
-	}
-	
 	anchors.left: parent.left
 	anchors.right: parent.right
 	
 	property string cfg_dbPath: plasmoid.configuration.dbPath
 	property string cfg_pinnedDk: plasmoid.configuration.pinnedDk
 	
-	Controls.TextField {
-		id: pathField
+	RowLayout {
 		Kirigami.FormData.label: i18n("Database path:")
-		text: plasmoid.nativeInterface.dbPath
+		Controls.TextField {
+			id: pathField
+			Layout.fillWidth: true
+			text: plasmoid.nativeInterface.dbPath
+			onAccepted: {
+				cfg_dbPath = this.text
+				plasmoid.nativeInterface.setDbPath(cfg_dbPath)
+				plasmoid.nativeInterface.updateKountdownModel()
+			}
+		}
+		Controls.Button {
+			id: resetPathButton
+			icon.name: "edit-reset"
+			onClicked: pathField.text = plasmoid.nativeInterface.getStdDbPath()
+		}
 	}
 	
 	Controls.ScrollView {
@@ -50,10 +57,9 @@ Kirigami.FormLayout {
 			
 			highlight: highlight
 			
-			//model: plasmoid.nativeInterface.KountdownModel
-			model: 10
+			model: plasmoid.nativeInterface.KountdownModel
 			delegate: Kirigami.BasicListItem {
-				label: "Item " + modelData
+				label: index + ": " + name
 				onClicked: cfg_pinnedDk = index
 			}
 		}

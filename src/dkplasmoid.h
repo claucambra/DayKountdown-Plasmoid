@@ -31,8 +31,9 @@ public:
     KountdownModel* readKountdownModel() const;
 	void setKountdownModel(KountdownModel* inKountdownModel);
 	
+	Q_INVOKABLE QString getStdDbPath();
 	QString readDbPath() const;
-	void setDbPath(QString inDbPath);
+	Q_INVOKABLE void setDbPath(QString inDbPath);
 	
 	bool readDbError();
 		

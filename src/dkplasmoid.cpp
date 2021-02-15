@@ -9,20 +9,12 @@
 
 DKPlasmoid::DKPlasmoid(QObject *parent, const QVariantList &args) : Plasma::Applet(parent, args)
 {
-	QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"));
-	const auto path = QDir::homePath() + QStringLiteral("/.local/share/daykountdown/daykountdown");
-	db.setDatabaseName(path);
-	if (!db.open()) {
-		qCritical() << db.lastError() << "while opening database at" << path;
-		m_dbError = true;
-	}
-	m_dbPath = path;
-	m_KountdownModel = new KountdownModel(qApp);
 }
 
 DKPlasmoid::~DKPlasmoid()
 {
 }
+
 
 void DKPlasmoid::launchFullDK()
 {
@@ -39,6 +31,13 @@ void DKPlasmoid::launchFullDK()
 
 void DKPlasmoid::updateKountdownModel()
 {
+	QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"));
+	db.setDatabaseName(m_dbPath);
+	if (!db.open()) {
+		qCritical() << db.lastError() << "while opening database at" << m_dbPath;
+		m_dbError = true;
+	}
+	
 	KountdownModel* updatedModel = new KountdownModel(qApp);
 	setKountdownModel(updatedModel);
 }
@@ -54,6 +53,13 @@ KountdownModel* DKPlasmoid::readKountdownModel() const
     return m_KountdownModel;
 }
 
+
+QString DKPlasmoid::getStdDbPath()
+{
+	return QDir::homePath() + QStringLiteral("/.local/share/daykountdown/daykountdown");
+}
+
+
 void DKPlasmoid::setDbPath(QString inDbPath)
 {
 	m_dbPath = inDbPath;
@@ -64,6 +70,7 @@ QString DKPlasmoid::readDbPath() const
 {
     return m_dbPath;
 }
+
 
 bool DKPlasmoid::readDbError()
 {

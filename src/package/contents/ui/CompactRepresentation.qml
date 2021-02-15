@@ -13,5 +13,10 @@ import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.kirigami 2.13 as Kirigami 
 
 Item {
-	property string cfg_pinnedDk: plasmoid.configuration.pinnedDk
+	property int cfg_pinnedDk: plasmoid.configuration.pinnedDk
+	property var pinnedKountdown: plasmoid.nativeInterface.KountdownModel.getKountdownByIndex(cfg_pinnedDk)
+	Component.onCompleted: {
+		console.log(cfg_pinnedDk)
+		console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + pinnedKountdown)
+	}
 }

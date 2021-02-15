@@ -64,6 +64,23 @@ QHash<int, QByteArray> KountdownModel::roleNames() const
 	return roles;
 }
 
+QVariantList KountdownModel::getKountdownByIndex(int index)
+{
+	QSqlQuery query;
+	query.exec("SELECT * FROM KountdownModel WHERE id=" + QString::number(index));
+	query.first();
+	QVariantList record;
+	
+	record.append(query.value(0).toInt()); //ID
+	record.append(query.value(1).toString()); //NAME
+	record.append(query.value(2).toString()); //DESCRIPTION
+	record.append(query.value(3).toString()); //DATE
+	record.append(query.value(4).toInt()); //DATE_IN_MS
+	record.append(query.value(5).toString()); //COLOUR
+
+	return record;
+}
+
 void KountdownModel::listAllKountdowns()
 {
 	QSqlQuery query;

@@ -50,6 +50,7 @@ public:
 	QVariant data(const QModelIndex &index, int role) const override;
 
 	// Q_INVOKABLE methods can be called within the QML
+	Q_INVOKABLE QVariantList getKountdownByIndex(int index);
 	Q_INVOKABLE void listAllKountdowns();
 	Q_INVOKABLE void sortModel(int sort_by);
 

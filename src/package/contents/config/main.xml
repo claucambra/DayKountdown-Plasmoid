@@ -13,6 +13,7 @@
 		
 		<entry name="pinnedKd" type="int">
 			<label></label>
+			<default>0</default>
 		</entry>
 		
 	</group>
