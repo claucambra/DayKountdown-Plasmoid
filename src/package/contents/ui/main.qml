@@ -12,14 +12,11 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
 Item {
-	property string cfg_dbPath: plasmoid.configuration.dbPath
-	property int cfg_pinnedDk: plasmoid.configuration.pinnedDk
+	id: mainRoot
 	
 	Component.onCompleted: {
-		if(cfg_dbPath === "") {
-			cfg_dbPath = plasmoid.nativeInterface.getStdDbPath()
-		}
-		plasmoid.nativeInterface.setDbPath(cfg_dbPath)
+		console.log(plasmoid.configuration.dbPath + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + plasmoid.configuration.pinnedDk)
+		plasmoid.nativeInterface.setDbPath(plasmoid.configuration.dbPath)
 		plasmoid.nativeInterface.updateKountdownModel()
 	}
 	

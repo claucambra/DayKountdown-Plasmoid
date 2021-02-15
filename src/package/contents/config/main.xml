@@ -6,13 +6,11 @@
 	<kcfgfile name=""/>
 	
 	<group name="General">
-		<entry name="dbPath" type="String">
-			<label></label>
-			<default></default>
+		<entry name="dbPath" type="Path">
+			<default>$HOME/.local/share/daykountdown/daykountdown</default>
 		</entry>
 		
-		<entry name="pinnedKd" type="int">
-			<label></label>
+		<entry name="pinnedDk" type="Int">
 			<default>0</default>
 		</entry>
 		

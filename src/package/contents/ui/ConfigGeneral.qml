@@ -17,13 +17,13 @@ Kirigami.FormLayout {
 	anchors.left: parent.left
 	anchors.right: parent.right
 	
-	property string cfg_dbPath: plasmoid.configuration.dbPath
-	property string cfg_pinnedDk: plasmoid.configuration.pinnedDk
+	property alias cfg_dbPath: dbPath.text
+	property alias cfg_pinnedDk: pinnedDk.currentIndex
 	
 	RowLayout {
 		Kirigami.FormData.label: i18n("Database path:")
 		Controls.TextField {
-			id: pathField
+			id: dbPath
 			Layout.fillWidth: true
 			text: plasmoid.nativeInterface.dbPath
 			onAccepted: {
@@ -35,7 +35,7 @@ Kirigami.FormLayout {
 		Controls.Button {
 			id: resetPathButton
 			icon.name: "edit-reset"
-			onClicked: pathField.text = plasmoid.nativeInterface.getStdDbPath()
+			onClicked: dbPath.text = plasmoid.nativeInterface.getStdDbPath()
 		}
 	}
 	
@@ -51,16 +51,13 @@ Kirigami.FormLayout {
 		}
 		
 		ListView {
-			id: kountdownPicker
+			id: pinnedDk
 			width: parent.width
 			height: parent.height
-			
-			highlight: highlight
 			
 			model: plasmoid.nativeInterface.KountdownModel
 			delegate: Kirigami.BasicListItem {
 				label: index + ": " + name
-				onClicked: cfg_pinnedDk = index
 			}
 		}
 	}

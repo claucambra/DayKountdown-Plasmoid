@@ -14,10 +14,9 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 Item {
 	id: compactMain
 	
-	property int cfg_pinnedDk: plasmoid.configuration.pinnedDk
-	property var pinnedKountdown: plasmoid.nativeInterface.KountdownModel.getKountdownByIndex(cfg_pinnedDk)
-	Layout.preferredWidth: units.gridUnit * 12
-    Layout.preferredHeight: units.gridUnit * 4
+	property var pinnedKountdown: plasmoid.nativeInterface.KountdownModel.getKountdownByIndex(plasmoid.configuration.pinnedDk)
+	Layout.minimumWidth: units.gridUnit * 10
+    Layout.maximumWidth: Layout.minimumWidth
 	
 	/* pinnedKountdown array contains:
 	 * 0. ID
@@ -32,6 +31,7 @@ Item {
 		id: compactLayout
 		width: parent.width
 		height: parent.height
+		spacing: 5
 		
 		PlasmaComponents.Label {
 			Layout.fillHeight: true
