@@ -5,7 +5,6 @@
 */
 
 import QtQuick 2.6
-import QtQuick.Controls 2.0 as Controls
 import QtQuick.Layouts 1.2
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 2.0 as PlasmaComponents
@@ -15,8 +14,10 @@ import org.kde.kirigami 2.13 as Kirigami
 Item {
 	id: fullResLayout
 	anchors.fill: parent
-	Layout.preferredWidth: Kirigami.Units.gridUnit * 16
-	Layout.preferredHeight: Kirigami.Units.gridUnit * 20
+	Layout.preferredWidth: units.gridUnit * 16
+	Layout.preferredHeight: units.gridUnit * 18
+	Layout.minimumWidth: units.gridUnit * 12
+	Layout.minimumHeight: units.gridUnit * 14
 	
 	ColumnLayout {
 		anchors.fill: parent

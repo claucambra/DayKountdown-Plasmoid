@@ -13,7 +13,7 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 
 Item {
 	property string cfg_dbPath: plasmoid.configuration.dbPath
-	property string cfg_pinnedDk: plasmoid.configuration.pinnedDk
+	property int cfg_pinnedDk: plasmoid.configuration.pinnedDk
 	
 	Component.onCompleted: {
 		if(cfg_dbPath === "") {
@@ -39,7 +39,7 @@ Item {
 			return i18n("%1 " + daysWord, daysLeft)
 	}
 	
+	Plasmoid.switchHeight: units.gridUnit * 10
     Plasmoid.compactRepresentation: CompactRepresentation {}
     Plasmoid.fullRepresentation: FullRepresentation {}
-    Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
 }
