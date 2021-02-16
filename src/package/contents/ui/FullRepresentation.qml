@@ -29,6 +29,7 @@ PlasmaComponents3.Page {
 			width: parent.width
 			
 			PlasmaExtras.Heading {
+				Layout.fillWidth: true
 				level: 1
 				text: i18n("Kountdowns")
 				wrapMode: Text.Wrap
@@ -113,12 +114,15 @@ PlasmaComponents3.Page {
 		anchors.fill: parent
 		PlasmaExtras.ScrollArea {
 			id: scrollArea
+			
 			anchors {
 				left: parent.left
 				right: parent.right
 				bottom: parent.bottom
 			}
 			Layout.fillHeight: true
+			Layout.topMargin: Kirigami.Units.smallSpacing
+			
 			ListView {
 				id: cardsView
 				anchors.fill: parent
@@ -128,7 +132,8 @@ PlasmaComponents3.Page {
 					sourceModel: plasmoid.nativeInterface.KountdownModel
 				}
 				delegate: DKPlasmoidCard {}
-				spacing: Kirigami.Units.largeSpacing * 2
+				
+				spacing: Kirigami.Units.largeSpacing
 				
 				Kirigami.PlaceholderMessage {
 					visible: cardsView.count == 0 ? true : false

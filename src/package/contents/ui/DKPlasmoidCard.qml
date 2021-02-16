@@ -7,11 +7,12 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0 as Controls
 import QtQuick.Layouts 1.2
+
+import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kirigami 2.13 as Kirigami
 
 // Delegate is how the information will be presented in the ListView
-
-Item {
+PlasmaExtras.ListItem {
 	id: kountdownDelegate
 	// implicitWidth/Height define the natural width/height of an item if no width or height is specified
 	// The setting below defines a component's preferred size based on its content
@@ -23,7 +24,6 @@ Item {
 		
 		anchors {
 			left: parent.left
-			top: parent.top
 			right: parent.right
 		}
 		
@@ -59,14 +59,11 @@ Item {
 				wrapMode: Text.Wrap
 				text: name
 			}
-			Kirigami.Separator {
-				Layout.fillWidth: true
-				visible: description.length > 0
-			}
 			Controls.Label {
 				Layout.fillWidth: true
 				wrapMode: Text.WordWrap
 				text: description
+				opacity: 0.7
 				visible: description.length > 0
 			}
 		}
