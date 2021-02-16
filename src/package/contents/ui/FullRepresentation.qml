@@ -49,53 +49,64 @@ PlasmaComponents3.Page {
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Creation (ascending)")
 						onClicked: {
-							sortedDkModel.sortColumn = 0
-							sortedDkModel.sortOrder = "AscendingOrder"
+							plasmoid.configuration.sortRole = "id"
+							plasmoid.configuration.sortColumn = 4
+							plasmoid.configuration.sortOrder = "AscendingOrder"
 							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Creation (descending)")
 						onClicked: {
-							sortedDkModel.sortColumn = 0
-							sortedDkModel.sortOrder = "DescendingOrder"
+							plasmoid.configuration.sortRole = "id"
+							plasmoid.configuration.sortColumn = 0
+							plasmoid.configuration.sortOrder = "DescendingOrder"
 							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Date (ascending)")
 						onClicked: {
-							sortedDkModel.sortColumn = 4
+							plasmoid.configuration.sortRole = "dateInMs"
+							plasmoid.configuration.sortColumn = 4
 							// Ms since epoch, so small number = sooner date
-							sortedDkModel.sortOrder = "DescendingOrder"
+							plasmoid.configuration.sortOrder = "DescendingOrder"
 							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Date (descending)")
 						onClicked: {
-							sortedDkModel.sortColumn = 4
-							sortedDkModel.sortOrder = "AscendingOrder"
+							plasmoid.configuration.sortRole = "dateInMs"
+							plasmoid.configuration.sortColumn = 4
+							plasmoid.configuration.sortOrder = "AscendingOrder"
 							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (ascending)")
 						onClicked: {
-							sortedDkModel.sortColumn = 1
-							sortedDkModel.sortOrder = "AscendingOrder"
+							plasmoid.configuration.sortRole = "name"
+							plasmoid.configuration.sortColumn = 1
+							plasmoid.configuration.sortOrder = "AscendingOrder"
 							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (descending)")
 						onClicked: {
-							sortedDkModel.sortColumn = 1
-							sortedDkModel.sortOrder = "DescendingOrder"
+							plasmoid.configuration.sortRole = "name"
+							plasmoid.configuration.sortColumn = 1
+							plasmoid.configuration.sortOrder = "DescendingOrder"
 							cardsView.forceLayout()
 						}
 					}
 				}
+			}
+			PlasmaComponents3.ToolButton {
+				id: refreshButton
+				icon.name: "view-refresh"
+				onClicked: plasmoid.nativeInterface.updateKountdownModel();
 			}
 			PlasmaComponents3.ToolButton {
 				id: openDKButton
@@ -121,7 +132,6 @@ PlasmaComponents3.Page {
 				bottom: parent.bottom
 			}
 			Layout.fillHeight: true
-			Layout.topMargin: Kirigami.Units.smallSpacing
 			
 			ListView {
 				id: cardsView
@@ -130,8 +140,17 @@ PlasmaComponents3.Page {
 				model: PlasmaCore.SortFilterModel {
 					id: sortedDkModel
 					sourceModel: plasmoid.nativeInterface.KountdownModel
+					sortOrder: plasmoid.configuration.sortOrder
+					sortColumn: plasmoid.configuration.sortColumn
+					sortRole: plasmoid.configuration.sortRole
+					sortCaseSensitivity: Qt.CaseInsensitive
 				}
-				delegate: DKPlasmoidCard {}
+				delegate: DKPlasmoidCard {
+					Component.onCompleted: {
+						console.log(dateInMs)
+						console.log(plasmoid.configuration.sortOrder + plasmoid.configuration.sortRole)
+					}
+				}
 				
 				spacing: Kirigami.Units.largeSpacing
 				
@@ -155,6 +174,6 @@ PlasmaComponents3.Page {
 	
 	Connections {
 		target: plasmoid.nativeInterface.KountdownModel
-		onKountdownModelChanged: cardsView.forceLayout()
+		function onKountdownModelChanged() { cardsView.forceLayout() }
 	}
 }

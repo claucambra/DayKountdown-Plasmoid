@@ -9,13 +9,29 @@
 		<entry name="dbPath" type="Path">
 			<default>$HOME/.local/share/daykountdown/daykountdown</default>
 		</entry>
+	</group>
 		
+	<group name="Compact">
 		<entry name="pinnedDk" type="Int">
 			<default>0</default>
 		</entry>
 		
 		<entry name="nameVisible" type="Bool">
 			<default>true</default>
+		</entry>
+	</group>
+		
+	<group name="Sorting">
+		<entry name="sortRole" type="String">
+			<default>id</default>
+		</entry>
+		
+		<entry name="sortColumn" type="Int">
+			<default>0</default>
+		</entry>
+		
+		<entry name="sortOrder" type="String">
+			<default>AscendingOrder</default>
 		</entry>
 		
 	</group>
