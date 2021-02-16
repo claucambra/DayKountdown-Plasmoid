@@ -17,6 +17,31 @@ Item {
 	Component.onCompleted: {
 		plasmoid.nativeInterface.setDbPath(plasmoid.configuration.dbPath)
 		plasmoid.nativeInterface.updateKountdownModel()
+		plasmoid.setAction("launchFullDK", i18n("Open DayKountdown app"))
+	}
+	
+	PlasmaCore.DataSource {
+		id: executable
+		engine: "executable"
+		onNewData: {
+			var exitCode = data["exit code"]
+			var exitStatus = data["exit status"]
+			var stdout = data["stdout"]
+			var stderr = data["stderr"]
+			exited(sourceName, exitCode, exitStatus, stdout, stderr)
+			disconnectSource(sourceName) // cmd finished
+		}
+		function exec(cmd) {
+			if (cmd) {
+				connectSource(cmd)
+			}
+		}
+		signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
+		onExited: console.log(cmd, exitCode, exitStatus, stdout, stderr)
+	}
+	
+	function action_launchFullDK() {
+		executable.exec("daykountdown")
 	}
 	
 	property var nowDate: new Date()

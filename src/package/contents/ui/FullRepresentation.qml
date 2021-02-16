@@ -1,8 +1,8 @@
 /*
-* SPDX-FileCopyrightText: (C) 2021 Claudio Cambra <claudio.cambra@gmail.com>
-* 
-* SPDX-LicenseRef: GPL-3.0-or-later
-*/
+ * SPDX-FileCopyrightText: (C) 2021 Claudio Cambra <claudio.cambra@gmail.com>
+ * 
+ * SPDX-LicenseRef: GPL-3.0-or-later
+ */
 
 import QtQuick 2.6
 import QtQuick.Layouts 1.2
@@ -13,36 +13,38 @@ import org.kde.kirigami 2.13 as Kirigami
 
 PlasmaComponents3.Page {
 	id: fullMain
+	
 	anchors.fill: parent
 	Layout.preferredWidth: units.gridUnit * 16
 	Layout.preferredHeight: units.gridUnit * 18
 	Layout.minimumWidth: units.gridUnit * 12
 	Layout.minimumHeight: units.gridUnit * 14
 	
-	ColumnLayout {
-		id: fullResLayout
-		anchors.fill: parent
+	header: PlasmaExtras.PlasmoidHeading {
+		id: headerArea
+		
 		RowLayout {
-			id: topBar
-			Kirigami.Heading {
+			width: parent.width
+			
+			PlasmaExtras.Heading {
 				level: 1
 				text: i18n("Kountdowns")
 				wrapMode: Text.Wrap
 			}
-			Item {
-				Layout.fillWidth: true
-				height: addButton.implicitHeight
-			}
+
 			PlasmaComponents3.ToolButton {
-                id: overflowMenu
-                icon.name: "view-sort-descending"
-                onClicked: {
-                    menu.open(overflowMenu, overflowMenu.height)
-                }
-                PlasmaComponents.ContextMenu {
-                    id: menu
-                    property var km: plasmoid.nativeInterface.KountdownModel
-                    PlasmaComponents.MenuItem {
+				id: overflowMenu
+				icon.name: "view-sort-descending"
+				PlasmaComponents3.ToolTip {
+					text: i18n("Sort kountdowns")
+				}
+				onClicked: {
+					menu.open(overflowMenu, overflowMenu.height)
+				}
+				PlasmaComponents.ContextMenu {
+					id: menu
+					property var km: plasmoid.nativeInterface.KountdownModel
+					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Creation (ascending)")
 						onClicked: {
 							// Look at enums in kountdownmodel.cpp to understand the nums
@@ -91,13 +93,25 @@ PlasmaComponents3.Page {
 				id: refreshButton
 				icon.name: "view-refresh"
 				onClicked: cardsView.forceLayout();
+				PlasmaComponents3.ToolTip {
+					text: i18n("Refresh")
+				}
 			}
 			PlasmaComponents3.ToolButton {
 				id: addButton
 				icon.name: "document-properties"
-				onClicked: plasmoid.nativeInterface.launchFullDK()
+				onClicked: plasmoid.action("launchFullDK").trigger()
+				PlasmaComponents3.ToolTip {
+                    text: plasmoid.action("launchFullDK").text
+                }
 			}
 		}
+	}
+	
+	
+	ColumnLayout {
+		id: fullResLayout
+		anchors.fill: parent
 		PlasmaExtras.ScrollArea {
 			id: scrollArea
 			anchors {

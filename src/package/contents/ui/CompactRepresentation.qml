@@ -59,5 +59,4 @@ MouseArea {
 			verticalAlignment: Text.AlignVCenter
 		}
 	}
-	
 }

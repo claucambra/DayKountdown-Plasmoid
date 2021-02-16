@@ -15,20 +15,6 @@ DKPlasmoid::~DKPlasmoid()
 {
 }
 
-
-void DKPlasmoid::launchFullDK()
-{
-	int outcome = system("daykountdown");
-	if(outcome != 0) {
-		if(outcome == 32512) {
-			system("notify-send -i 'org.kde.daykountdown' 'Error launching DayKountdown' 'Did you install the full DayKountdown app?'");
-		} else {
-			system("notify-send -i 'org.kde.daykountdown' 'Error launching DayKountdown'");
-		}
-	}
-}
-
-
 void DKPlasmoid::updateKountdownModel()
 {
 	QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"));
