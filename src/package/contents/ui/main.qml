@@ -25,10 +25,7 @@ Item {
 		engine: "executable"
 		onNewData: {
 			var exitCode = data["exit code"]
-			var exitStatus = data["exit status"]
-			var stdout = data["stdout"]
-			var stderr = data["stderr"]
-			exited(sourceName, exitCode, exitStatus, stdout, stderr)
+			exited(sourceName, exitCode)
 			disconnectSource(sourceName) // cmd finished
 		}
 		function exec(cmd) {
@@ -36,8 +33,14 @@ Item {
 				connectSource(cmd)
 			}
 		}
-		signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
-		onExited: console.log(cmd, exitCode, exitStatus, stdout, stderr)
+		signal exited(string cmd, int exitCode)
+		onExited: {
+			if(exitCode == 32512) {
+				
+			} else if (exitCode != 0) {
+				
+			}
+		}
 	}
 	
 	function action_launchFullDK() {

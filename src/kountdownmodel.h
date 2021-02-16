@@ -27,17 +27,6 @@ public:
 		DateInMsRole,
 		ColourRole,
 	};
-	
-	// Used for more semantic arguments to model sorting function
-	enum SortTypes {
-		CreationAsc = 0,
-		CreationDesc,
-		AlphabeticalAsc,
-		AlphabeticalDesc,
-		DateAsc,
-		DateDesc,
-	};
-	Q_ENUMS(SortTypes);
 
 public:
 	// Constructor function
@@ -52,7 +41,6 @@ public:
 	// Q_INVOKABLE methods can be called within the QML
 	Q_INVOKABLE QVariantList getKountdownByIndex(int index);
 	Q_INVOKABLE void listAllKountdowns();
-	Q_INVOKABLE void sortModel(int sort_by);
 
 private:
 	QSqlDatabase m_db;

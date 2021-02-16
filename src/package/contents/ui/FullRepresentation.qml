@@ -6,6 +6,8 @@
 
 import QtQuick 2.6
 import QtQuick.Layouts 1.2
+
+import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.components 3.0 as PlasmaComponents3
@@ -17,7 +19,7 @@ PlasmaComponents3.Page {
 	anchors.fill: parent
 	Layout.preferredWidth: units.gridUnit * 16
 	Layout.preferredHeight: units.gridUnit * 18
-	Layout.minimumWidth: units.gridUnit * 12
+	Layout.minimumWidth: units.gridUnit * 14
 	Layout.minimumHeight: units.gridUnit * 14
 	
 	header: PlasmaExtras.PlasmoidHeading {
@@ -43,62 +45,59 @@ PlasmaComponents3.Page {
 				}
 				PlasmaComponents.ContextMenu {
 					id: menu
-					property var km: plasmoid.nativeInterface.KountdownModel
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Creation (ascending)")
 						onClicked: {
-							// Look at enums in kountdownmodel.cpp to understand the nums
-							parent.km.sortModel(0)
-							cardsView.forceLayout();
+							sortedDkModel.sortColumn = 0
+							sortedDkModel.sortOrder = "AscendingOrder"
+							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Creation (descending)")
 						onClicked: {
-							parent.km.sortModel(1)
-							cardsView.forceLayout();
+							sortedDkModel.sortColumn = 0
+							sortedDkModel.sortOrder = "DescendingOrder"
+							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Date (ascending)")
 						onClicked: {
-							parent.km.sortModel(2)
-							cardsView.forceLayout();
+							sortedDkModel.sortColumn = 4
+							// Ms since epoch, so small number = sooner date
+							sortedDkModel.sortOrder = "DescendingOrder"
+							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Date (descending)")
 						onClicked: {
-							parent.km.sortModel(3)
-							cardsView.forceLayout();
+							sortedDkModel.sortColumn = 4
+							sortedDkModel.sortOrder = "AscendingOrder"
+							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (ascending)")
 						onClicked: {
-							parent.km.sortModel(4)
-							cardsView.forceLayout();
+							sortedDkModel.sortColumn = 1
+							sortedDkModel.sortOrder = "AscendingOrder"
+							cardsView.forceLayout()
 						}
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (descending)")
 						onClicked: {
-							parent.km.sortModel(5)
-							cardsView.forceLayout();
+							sortedDkModel.sortColumn = 1
+							sortedDkModel.sortOrder = "DescendingOrder"
+							cardsView.forceLayout()
 						}
 					}
 				}
 			}
 			PlasmaComponents3.ToolButton {
-				id: refreshButton
-				icon.name: "view-refresh"
-				onClicked: cardsView.forceLayout();
-				PlasmaComponents3.ToolTip {
-					text: i18n("Refresh")
-				}
-			}
-			PlasmaComponents3.ToolButton {
-				id: addButton
+				id: openDKButton
 				icon.name: "document-properties"
 				onClicked: plasmoid.action("launchFullDK").trigger()
 				PlasmaComponents3.ToolTip {
@@ -124,10 +123,13 @@ PlasmaComponents3.Page {
 				id: cardsView
 				anchors.fill: parent
 				// Model contains info to be displayed
-				model: plasmoid.nativeInterface.KountdownModel
-				// Grabs component from different file specified in resources
+				model: PlasmaCore.SortFilterModel {
+					id: sortedDkModel
+					sourceModel: plasmoid.nativeInterface.KountdownModel
+				}
 				delegate: DKPlasmoidCard {}
-				spacing: 5
+				spacing: Kirigami.Units.largeSpacing * 2
+				
 				Kirigami.PlaceholderMessage {
 					visible: cardsView.count == 0 ? true : false
 					anchors.centerIn: parent
@@ -144,5 +146,10 @@ PlasmaComponents3.Page {
 				}
 			}
 		}
+	}
+	
+	Connections {
+		target: plasmoid.nativeInterface.KountdownModel
+		onKountdownModelChanged: cardsView.forceLayout()
 	}
 }

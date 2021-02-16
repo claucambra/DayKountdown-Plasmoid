@@ -17,8 +17,6 @@ KountdownModel::KountdownModel(QObject *parent) : QSqlTableModel(parent)
 {
 	// Sets data table on which the model is going to operate
 	setTable(QStringLiteral("KountdownModel"));
-	// All changed will be cached in the model until submitAll() ot revertAll() is called
-	setEditStrategy(QSqlTableModel::OnManualSubmit);
 	// Populates the model with data from the table set above
 	select();
 }
@@ -89,32 +87,4 @@ void KountdownModel::listAllKountdowns()
 		QString row = query.value(1).toString();
 		qDebug() << row;
 	}
-}
-
-void KountdownModel::sortModel(int sort_by) {
-	// Switch based on enum defined in kountdownmodel.h
-	switch(sort_by) {
-		case (AlphabeticalAsc):
-			// This points to KountdownModel
-			this->setSort(1, Qt::AscendingOrder);
-			break;
-		case (AlphabeticalDesc):
-			this->setSort(1, Qt::DescendingOrder);
-			break;
-		case (DateAsc):
-			this->setSort(3, Qt::AscendingOrder);
-			break;
-		case (DateDesc):
-			this->setSort(3, Qt::DescendingOrder);
-			break;
-		case (CreationDesc):
-			this->setSort(0, Qt::DescendingOrder);
-			break;
-		case (CreationAsc):
-		default:
-			this->setSort(0, Qt::AscendingOrder);
-			break;
-	}
-	// Required to update model
-	select();
 }

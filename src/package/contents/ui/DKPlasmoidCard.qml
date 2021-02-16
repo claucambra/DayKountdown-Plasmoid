@@ -10,57 +10,66 @@ import QtQuick.Layouts 1.2
 import org.kde.kirigami 2.13 as Kirigami
 
 // Delegate is how the information will be presented in the ListView
-Kirigami.AbstractCard {
+
+Item {
 	id: kountdownDelegate
+	// implicitWidth/Height define the natural width/height of an item if no width or height is specified
+	// The setting below defines a component's preferred size based on its content
 	width: parent.width
-	contentItem: Item {
-		// implicitWidth/Height define the natural width/height of an item if no width or height is specified
-		// The setting below defines a component's preferred size based on its content
-		implicitWidth: delegateLayout.implicitWidth
-		implicitHeight: delegateLayout.implicitHeight
-		GridLayout {
-			id: delegateLayout
-			anchors {
-				left: parent.left
-				top: parent.top
-				right: parent.right
+	height: delegateLayout.height
+	
+	GridLayout {
+		id: delegateLayout
+		
+		anchors {
+			left: parent.left
+			top: parent.top
+			right: parent.right
+		}
+		
+		rowSpacing: Kirigami.Units.largeSpacing
+		columnSpacing: Kirigami.Units.largeSpacing
+		columns: 2
+		
+		RowLayout {
+			Layout.minimumWidth: Kirigami.Units.gridUnit * 4
+			Layout.maximumWidth: Layout.minimumWidth
+			clip: true
+			Rectangle {
+				Layout.fillHeight: true
+				width: 5
+				color: colour
 			}
-			rowSpacing: Kirigami.Units.largeSpacing
-			columnSpacing: Kirigami.Units.largeSpacing
-			columns: 2
-			RowLayout {
-				Rectangle {
-					Layout.fillHeight: true
-					width: 5
-					color: colour
-				}
-				Kirigami.Heading {
-					Layout.fillHeight: true
-					level: 1
-					text: daysLeftString(date)
-					color: colour
-				}
+			Kirigami.Heading {
+				Layout.fillHeight: true
+				Layout.fillWidth: true
+				level: 1
+				text: daysLeftString(date)
+				wrapMode: Text.WordWrap
+				color: colour
 			}
-			
-			// Layout for positioning elements vertically
-			ColumnLayout {
-				Kirigami.Heading {
-					Layout.fillWidth: true
-					level: 2
-					wrapMode: Text.Wrap
-					text: name
-				}
-				Kirigami.Separator {
-					Layout.fillWidth: true
-					visible: description.length > 0
-				}
-				Controls.Label {
-					Layout.fillWidth: true
-					wrapMode: Text.WordWrap
-					text: description
-					visible: description.length > 0
-				}
+		}
+		
+		// Layout for positioning elements vertically
+		ColumnLayout {
+			Layout.fillWidth: true
+			Kirigami.Heading {
+				Layout.fillWidth: true
+				level: 2
+				wrapMode: Text.Wrap
+				text: name
+			}
+			Kirigami.Separator {
+				Layout.fillWidth: true
+				visible: description.length > 0
+			}
+			Controls.Label {
+				Layout.fillWidth: true
+				wrapMode: Text.WordWrap
+				text: description
+				visible: description.length > 0
 			}
 		}
 	}
 }
+
