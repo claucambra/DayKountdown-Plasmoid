@@ -11,8 +11,8 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.kirigami 2.13 as Kirigami 
 
-Item {
-	id: fullResLayout
+PlasmaComponents3.Page {
+	id: fullMain
 	anchors.fill: parent
 	Layout.preferredWidth: units.gridUnit * 16
 	Layout.preferredHeight: units.gridUnit * 18
@@ -20,8 +20,10 @@ Item {
 	Layout.minimumHeight: units.gridUnit * 14
 	
 	ColumnLayout {
+		id: fullResLayout
 		anchors.fill: parent
 		RowLayout {
+			id: topBar
 			Kirigami.Heading {
 				level: 1
 				text: i18n("Kountdowns")

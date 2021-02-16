@@ -24,7 +24,9 @@ Item {
 		interval: 60000
 		running: true
 		repeat: true
-		onTriggered: nowDate = new Date()
+		onTriggered: {
+			nowDate = new Date()
+		}
 	}
 	function daysLeftString(inDate) {
 		var daysLeft = Math.round((inDate.getTime()-nowDate.getTime())/86400000)
