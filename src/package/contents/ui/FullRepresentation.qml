@@ -22,6 +22,21 @@ PlasmaComponents3.Page {
 	Layout.minimumWidth: units.gridUnit * 14
 	Layout.minimumHeight: units.gridUnit * 14
 	
+	function setSort(sortBy, order) {
+		plasmoid.configuration.sortRole = sortBy
+		switch(sortBy) {
+			case "id":
+				plasmoid.configuration.sortColumn = 0
+			case "name":
+				plasmoid.configuration.sortColumn = 1
+			case "dateInMs":
+				plasmoid.configuration.sortColumn = 4
+		}
+		plasmoid.configuration.sortOrder = order
+		cardsView.forceLayout()
+	}
+	
+	
 	header: PlasmaExtras.PlasmoidHeading {
 		id: headerArea
 		
@@ -48,58 +63,28 @@ PlasmaComponents3.Page {
 					id: menu
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Creation (ascending)")
-						onClicked: {
-							plasmoid.configuration.sortRole = "id"
-							plasmoid.configuration.sortColumn = 4
-							plasmoid.configuration.sortOrder = "AscendingOrder"
-							cardsView.forceLayout()
-						}
+						onClicked: setSort("id", "AscendingOrder")
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Creation (descending)")
-						onClicked: {
-							plasmoid.configuration.sortRole = "id"
-							plasmoid.configuration.sortColumn = 0
-							plasmoid.configuration.sortOrder = "DescendingOrder"
-							cardsView.forceLayout()
-						}
+						onClicked: setSort("id", "DescendingOrder")
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Date (ascending)")
-						onClicked: {
-							plasmoid.configuration.sortRole = "dateInMs"
-							plasmoid.configuration.sortColumn = 4
-							// Ms since epoch, so small number = sooner date
-							plasmoid.configuration.sortOrder = "DescendingOrder"
-							cardsView.forceLayout()
-						}
+						onClicked: setSort("dateInMs", "DescendingOrder")
+						// Ms since epoch, so small number = sooner date
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Date (descending)")
-						onClicked: {
-							plasmoid.configuration.sortRole = "dateInMs"
-							plasmoid.configuration.sortColumn = 4
-							plasmoid.configuration.sortOrder = "AscendingOrder"
-							cardsView.forceLayout()
-						}
+						onClicked: setSort("dateInMs", "AscendingOrder")
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (ascending)")
-						onClicked: {
-							plasmoid.configuration.sortRole = "name"
-							plasmoid.configuration.sortColumn = 1
-							plasmoid.configuration.sortOrder = "AscendingOrder"
-							cardsView.forceLayout()
-						}
+						onClicked: setSort("names", "AscendingOrder")
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (descending)")
-						onClicked: {
-							plasmoid.configuration.sortRole = "name"
-							plasmoid.configuration.sortColumn = 1
-							plasmoid.configuration.sortOrder = "DescendingOrder"
-							cardsView.forceLayout()
-						}
+						onClicked: setSort("name", "DescendingOrder")
 					}
 				}
 			}
