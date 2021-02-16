@@ -14,4 +14,9 @@ ConfigModel {
          icon: "preferences-desktop-plasma"
          source: "ConfigGeneral.qml"
     }
+    ConfigCategory {
+         name: i18n("Panel view settings")
+         icon: "preferences-desktop"
+         source: "ConfigCompact.qml"
+    }
 }

@@ -15,7 +15,6 @@ Item {
 	id: mainRoot
 	
 	Component.onCompleted: {
-		console.log(plasmoid.configuration.dbPath + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + plasmoid.configuration.pinnedDk)
 		plasmoid.nativeInterface.setDbPath(plasmoid.configuration.dbPath)
 		plasmoid.nativeInterface.updateKountdownModel()
 	}

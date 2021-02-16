@@ -18,7 +18,6 @@ Kirigami.FormLayout {
 	anchors.right: parent.right
 	
 	property alias cfg_dbPath: dbPath.text
-	property alias cfg_pinnedDk: pinnedDk.currentIndex
 	
 	RowLayout {
 		Kirigami.FormData.label: i18n("Database path:")
@@ -36,29 +35,6 @@ Kirigami.FormLayout {
 			id: resetPathButton
 			icon.name: "edit-reset"
 			onClicked: dbPath.text = plasmoid.nativeInterface.getStdDbPath()
-		}
-	}
-	
-	Controls.ScrollView {
-		Layout.fillWidth: true
-		Layout.fillHeight: true
-		Kirigami.FormData.label: i18n("Pinned kountdown:")
-		background: Rectangle {
-			SystemPalette {id: palette}
-			width: parent.width
-			height: parent.height
-			color: palette.base
-		}
-		
-		ListView {
-			id: pinnedDk
-			width: parent.width
-			height: parent.height
-			
-			model: plasmoid.nativeInterface.KountdownModel
-			delegate: Kirigami.BasicListItem {
-				label: index + ": " + name
-			}
 		}
 	}
 }

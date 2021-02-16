@@ -40,6 +40,7 @@ Item {
 			wrapMode: Text.Wrap
 			elide: Text.ElideRight
 			verticalAlignment: Text.AlignVCenter
+			visible: plasmoid.configuration.nameVisible
 		}
 		PlasmaComponents.Label {
 			Layout.fillWidth: true

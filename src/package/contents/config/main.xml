@@ -14,5 +14,9 @@
 			<default>0</default>
 		</entry>
 		
+		<entry name="nameVisible" type="Bool">
+			<default>true</default>
+		</entry>
+		
 	</group>
 </kcfg>
