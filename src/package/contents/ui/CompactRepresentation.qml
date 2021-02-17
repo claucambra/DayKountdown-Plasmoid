@@ -14,6 +14,7 @@ import org.kde.plasma.components 3.0 as PlasmaComponents3
 
 MouseArea {
 	id: compactMain
+	
 	property var pinnedKountdown: plasmoid.nativeInterface.KountdownModel.getKountdownByIndex(plasmoid.configuration.pinnedDk)
 	property bool nameVisible: plasmoid.configuration.nameVisible
 	

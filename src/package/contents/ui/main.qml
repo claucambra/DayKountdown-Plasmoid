@@ -14,6 +14,9 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 Item {
 	id: mainRoot
 	
+	property bool errorLaunchingDK: false
+	property string errorMessageDKLaunch
+	
 	Component.onCompleted: {
 		plasmoid.nativeInterface.setDbPath(plasmoid.configuration.dbPath)
 		plasmoid.nativeInterface.updateKountdownModel()
@@ -35,16 +38,19 @@ Item {
 		}
 		signal exited(string cmd, int exitCode)
 		onExited: {
-			if(exitCode == 32512) {
-				
-			} else if (exitCode != 0) {
-				
+			if (exitCode != 0) {
+				var message = i18n("Error opening DayKountdown.")
+				if(exitCode == 127) {
+					message += i18n("\nCouldn't find application binary. Have you installed DayKountdown?")
+				}
+				errorMessageDKLaunch = message
+				errorLaunchingDK = true
 			}
 		}
 	}
 	
 	function action_launchFullDK() {
-		executable.exec("daykountdown")
+		executable.exec("daykountdow")
 	}
 	
 	property var nowDate: new Date()

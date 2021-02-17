@@ -36,7 +36,6 @@ PlasmaComponents3.Page {
 		cardsView.forceLayout()
 	}
 	
-	
 	header: PlasmaExtras.PlasmoidHeading {
 		id: headerArea
 		
@@ -80,7 +79,7 @@ PlasmaComponents3.Page {
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (ascending)")
-						onClicked: setSort("names", "AscendingOrder")
+						onClicked: setSort("name", "AscendingOrder")
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (descending)")
@@ -108,6 +107,16 @@ PlasmaComponents3.Page {
 	ColumnLayout {
 		id: fullResLayout
 		anchors.fill: parent
+		
+		Kirigami.InlineMessage {
+			id: dkOpenMessage
+			Layout.fillWidth: true
+			type: Kirigami.MessageType.Error
+			showCloseButton: true
+			visible: mainRoot.errorLaunchingDK
+			text: mainRoot.errorMessageDKLaunch
+		}
+		
 		PlasmaExtras.ScrollArea {
 			id: scrollArea
 			
@@ -130,12 +139,7 @@ PlasmaComponents3.Page {
 					sortRole: plasmoid.configuration.sortRole
 					sortCaseSensitivity: Qt.CaseInsensitive
 				}
-				delegate: DKPlasmoidCard {
-					Component.onCompleted: {
-						console.log(dateInMs)
-						console.log(plasmoid.configuration.sortOrder + plasmoid.configuration.sortRole)
-					}
-				}
+				delegate: DKPlasmoidCard {}
 				
 				spacing: Kirigami.Units.largeSpacing
 				
