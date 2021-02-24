@@ -50,7 +50,7 @@ Item {
 	}
 	
 	function action_launchFullDK() {
-		executable.exec("daykountdow")
+		executable.exec("daykountdown")
 	}
 	
 	property var nowDate: new Date()
@@ -63,7 +63,7 @@ Item {
 		}
 	}
 	function daysLeftString(inDate) {
-		var daysLeft = Math.round((inDate.getTime()-nowDate.getTime())/86400000)
+		var daysLeft = Math.ceil((inDate.getTime()-nowDate.getTime())/86400000)
 		var daysWord = daysLeft <= -2 || daysLeft >= 2 ? "days" : "day"
 		if (daysLeft < 0) 
 			return i18n("%1 " + daysWord + " ago", daysLeft*-1) 

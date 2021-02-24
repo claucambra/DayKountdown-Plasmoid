@@ -70,12 +70,11 @@ PlasmaComponents3.Page {
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Date (ascending)")
-						onClicked: setSort("dateInMs", "DescendingOrder")
-						// Ms since epoch, so small number = sooner date
+						onClicked: setSort("dateInMs", "AscendingOrder")
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Date (descending)")
-						onClicked: setSort("dateInMs", "AscendingOrder")
+						onClicked: setSort("dateInMs", "DescendingOrder")
 					}
 					PlasmaComponents.MenuItem {
 						text: i18nc("@action:button", "Alphabetical (ascending)")
