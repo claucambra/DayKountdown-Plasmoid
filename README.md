@@ -1,5 +1,8 @@
 # DayKountdown-Plasmoid
 
+
+# Note: This repository is now hosted on KDE's Invent GitLab instance. It can be found [here](https://invent.kde.org/clau-cambra/daykountdown-plasmoid). 
+
 A complementary KDE Plasma desktop widget for [DayKountdown](https://github.com/elChupaCambra/DayKountdown).
 
 ![](screenshots/Screenshot_mini.png)
